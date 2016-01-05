@@ -1,0 +1,9 @@
+l = 27#int(input())
+r = 61#int(input())
+max_n=0
+for i in range(l, r+1):
+    for j in range(i+1, r+1):
+        n = i^j
+        if(n>max_n):
+            max_n=n
+print(max_n)
