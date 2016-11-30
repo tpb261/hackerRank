@@ -8,15 +8,15 @@ for c in s:
     h[c] = S.count(c)    
     if(h[c]==let_count_1):
         let_count_1_count+=1
-    if(h[c]==let_count_2):
+    elif(h[c]==let_count_2):
         let_count_2_count+=1
-    if(0==let_count_1):
+    elif(0==let_count_1):
         let_count_1=h[c]
         let_count_1_count=1
-    elif(h[c]!=let_count_1 and 0==let_count_2):
+    elif(0==let_count_2):
         let_count_2 = h[c]
         let_count_2_count=1        
-    elif(h[c]!=let_count_1 and h[c]!=let_count_2):
+    else:
         imp=1
         break
 if(let_count_1>let_count_2):
