@@ -28,53 +28,45 @@ def getTwins(p1, p3, p7, p9):
 def getTwinPrimeCount(n, m):
     count = 0
 
-    if(n<=3):
-        count = 2 if(7<=m) else 1
-    elif(5<=n):
-        count = 1 if(7<=m) else 0
+    if(n%2==0): n=n+1
+    if(m%2==1): m=m+1
 
-    s=(n+4)//5*5
-    e=m//5*5
-    if(s%10 == 0): s=s+5
-    if(e%10 == 0): e=e-5
+    b1 = b2 = True
 
-    n = n+1 if(n%2==0) else n
-
-    p7=p9=p1=p3=0
-
-    if (s-8>=n): p7=s-8 
-    if (s-6>=n): p9=s-6 
-    if (s-4>=n): p1=s-4
-    if (s-2>=n): p3=s-2
+    if(n<=3 and m>=5):
+        n=5
+        count = 1
+    s=(n+1)//6
+    e=(m+1)//6
     
-    count = count+getTwins(p1, p3, p7, p9)
+    for i in range(s, e):
+        if(i%10 == 1 or i%10 == 6 or i%10==9 or i%10==4):
+            continue
+        p1=6*i-1
+        p2=p1+2
+        if(p1<n or p2>m or p1>m or p2<n):
+            continue
+        b1 = b2 = True
+        for j in range(7, 1+int(p1**(1/2))):
+            if(p1%j == 0):
+                b1=False
+                break
+        if(b1):
+            for j in range(7, 1+int(p2**(1/2))):
+                if(p2%j == 0):
+                    b2=False
+                    break
+        count = count + b1*b2
     
-    if( s<=e):
-        p7=p9=p1=p3=0
-        
-        if (e+2<=m): p7=e+2 
-        if (e+4<=m): p9=e+4 
-        if (e+6<=m): p1=e+6
-        if (e+8<=m): p3=e+8
-
-        count = count+getTwins(p1, p3, p7, p9)
-    
-    for i in range(s, e, 10):
-        p7=s+2
-        p9=s+4
-        p1=s+6
-        p3=s+8
-        count+getTwins(p1, p3, p7, p9)
-    
-    print(count)
+    return (count)
 
 
-for n in range(3, 100):
-    for m in range(5, 100):
-        print(n, m)
-        getTwinPrimeCount(n, m)
+#for n in range(3, 100):
+#    for m in range(5, 100):
+#        print(n, m)
+
 #n,m = input().strip().split(' ')
 #n,m = [int(n),int(m)]
-
-    
+n,m=[999000000, 1000000000]
+print(getTwinPrimeCount(n, m))    
 
